@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,15 +34,14 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    private int maxTime = 300;
+    private int maxTime = 1200;
     public int time = maxTime;
-    private int row = 8;
-    private int col = 8;
-    private int width = 700;
-    private int height = 500;
+    private int width = 1840;
+    private int height = 1076;
     public JLabel lbScore;
     private JProgressBar progressTime;
     private JButton btnNewGame;
+    private JComboBox cpbLevel;
     private ButtonEvent graphicsPanel;
     private JPanel mainPanel;
 
@@ -53,7 +53,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 
     public MainFrame() {
         add(mainPanel = createMainPanel());
-        setTitle("Pokemon Game");
+        setTitle("Pika Pika Pika LOL");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height);
@@ -63,23 +63,58 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         ap.start(as);
 
     }
-
+    public int[] SetLevel(){
+        int lev = 0;
+        try{
+            lev = cpbLevel.getSelectedIndex();
+        }catch(Exception e){}       
+        int row=0,col=0,wig=0,hei=0;
+        switch(lev){
+            case 0:
+             row = 4;
+             col = 4;
+             wig = 90;
+             hei = 50;
+            break;              
+            case 1:
+             row = 8;
+             col = 8;
+             wig = 90;
+             hei = 50;
+            break;
+            case 2:
+             row = 16;
+             col = 16;
+             wig = 90;
+             hei = 50;
+            break;
+            case 3:
+             row = 24;
+             col = 24;
+             wig = 56;
+             hei = 34;
+            break;
+        }
+        int[] level = {row, col, wig, hei};
+        return level;
+    }
+    
     private JPanel createMainPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.add(createGraphicsPanel(), BorderLayout.CENTER);
         panel.add(createControlPanel(), BorderLayout.EAST);
+        panel.add(createGraphicsPanel(), BorderLayout.CENTER);
         panel.add(createStatusPanel(), BorderLayout.PAGE_END);
         return panel;
     }
-
-    private JPanel createGraphicsPanel() {
-        graphicsPanel = new ButtonEvent(this, row, col);
+    @SuppressWarnings("empty-statement")
+    private JPanel createGraphicsPanel() { 
+        graphicsPanel = new ButtonEvent(this, SetLevel()[0],SetLevel()[1]);
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(Color.gray);
         panel.add(graphicsPanel);
         return panel;
     }
-
+    
     private JPanel createControlPanel() {
         lbScore = new JLabel("0");
         // lbTime = new JLabel("0");
@@ -102,9 +137,11 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         // create panel container panelScoreAndTime and button new game
         JPanel panelControl = new JPanel(new BorderLayout(10, 10));
         panelControl.setBorder(new EmptyBorder(10, 3, 5, 3));
-        panelControl.add(panelScoreAndTime, BorderLayout.CENTER);
+        panelControl.add(panelScoreAndTime, BorderLayout.BEFORE_FIRST_LINE);
         panelControl.add(btnNewGame = createButton("New Game"),
                 BorderLayout.PAGE_END);
+        panelControl.add(cpbLevel = createCompoBox("Level"),
+                BorderLayout.CENTER);
 
         // use panel set Layout BorderLayout to panel control in top
         JPanel panel = new JPanel(new BorderLayout());
@@ -117,7 +154,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
     // create status panel container author
     private JPanel createStatusPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        panel.setBackground(Color.lightGray);
+        panel.setBackground(Color.darkGray);
 
         return panel;
     }
@@ -127,6 +164,13 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         JButton btn = new JButton(buttonName);
         btn.addActionListener(this);
         return btn;
+    }
+    private JComboBox createCompoBox(String compoboxName) {
+        String[] theSeven = {"Dễ", "Trung bình", "Khó", "Khó siêu cấp vô địch vũ trụ số 7"};
+        JComboBox cpb = new JComboBox(theSeven);
+        cpb.setSelectedIndex(1);
+        cpb.addActionListener(this);
+        return cpb;
     }
 
     public void newGame() {

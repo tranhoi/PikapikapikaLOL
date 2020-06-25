@@ -32,8 +32,9 @@ public class ButtonEvent extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
     private int row;
     private int col;
-    private int bound = 2;
-    private int size = 50;
+    private int bound = 8;
+    private int size1 = 56;
+    private int size2 = 34; 
     private int score = 0;
     private JButton[][] btn;
     private Point p1 = null;
@@ -46,7 +47,6 @@ public class ButtonEvent extends JPanel implements ActionListener {
     Music m = new Music();
     AudioStream as = null;
     AudioPlayer ap = AudioPlayer.player;
-
     public ButtonEvent(MainFrame frame, int row, int col) {
         this.frame = frame;
         this.row = row + 2;
@@ -55,21 +55,15 @@ public class ButtonEvent extends JPanel implements ActionListener {
 
         setLayout(new GridLayout(row, col, bound, bound));
         setBackground(backGroundColor);
-        setPreferredSize(new Dimension((size + bound) * col, (size + bound)
-                * row));
-        setBorder(new EmptyBorder(10, 10, 10, 10));
+        setPreferredSize(new Dimension((size1 + bound) * col, (size2 + bound) * row));
+        setBorder(new EmptyBorder(8, 8, 8, 8));
         setAlignmentY(JPanel.CENTER_ALIGNMENT);
-
         newGame();
-
     }
-
     public void newGame() {
         algorithm = new Controller(this.frame, this.row, this.col);
         addArrayButton();
-
     }
-
     private void addArrayButton() {
         btn = new JButton[row][col];
         for (int i = 1; i < row - 1; i++) {
@@ -81,9 +75,8 @@ public class ButtonEvent extends JPanel implements ActionListener {
             }
         }
     }
-
     private Icon getIcon(int index) {
-        int width = 48, height = 48;
+        int width = 56, height = 34;
         Image image = new ImageIcon(getClass().getResource(
                 "/icon/" + index + ".png")).getImage();
         Icon icon = new ImageIcon(image.getScaledInstance(width, height,
@@ -121,7 +114,7 @@ public class ButtonEvent extends JPanel implements ActionListener {
                 btnIndex.length()));
         if (p1 == null) {
             p1 = new Point(x, y);
-            btn[p1.x][p1.y].setBorder(new LineBorder(Color.red));
+            btn[p1.x][p1.y].setBorder(new LineBorder(Color.GREEN, 5));
         } else {
             p2 = new Point(x, y);
             System.out.println("(" + p1.x + "," + p1.y + ")" + " --> " + "("

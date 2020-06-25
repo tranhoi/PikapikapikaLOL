@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
-
 import java.util.Collections;
 
 /**
@@ -209,71 +208,8 @@ public class Controller {
         }
         return false;
     }
-
-//    private void findPaths(Point p1, Point p2, ArrayList<Point> path, boolean[][] visited, int type) {
-////            if(p1.x == p2.x && p1.y == p2.y){
-////                 paths.add(path);
-////                 return;
-////            }
-////            if(p1.x==p2.x){
-////                if(checkLineX(p1.y, p2.y, p1.x)){
-////                    paths.add(path);
-////                }
-////            }
-////            if(p1.y==p2.y){
-////                if(checkLineY(p1.x, p2.x, p1.y)){
-////                    paths.add(path);
-////                }
-////            }
-//        int R[] = {1, -1, 0, 0};
-//        int C[] = {0, 0, -1, 1};
-//        int r = p1.x;
-//        int c = p1.y;
-//        for (int i = 0; i < 4; i++) {
-//            int u = r + R[i];
-//            int v = c + C[i];
-//
-//            if (u < 0 || u >= row || v < 0 || v >= col) {
-//                continue;
-//            }
-//            if (matrix[r][c] == matrix[u][v] && u == p2.x && v == p2.y) {
-//                paths.add(path);
-//                return;
-//            }
-//            if (visited[u][v] == false && (matrix[u][v] == 0)) {
-//                int t = u;
-//                int k = v;
-//                while (t >= 0 && t < row && k >= 0 && k < col && matrix[u][v] == 0) {
-//                    visited[u][v] = true;
-//                    u = t;
-//                    v = k;
-//                    t += R[i];
-//                    k += C[i];
-//                }
-//
-//                Point p3 = new Point();
-//                p3.x = u;
-//                p3.y = v;
-//                ArrayList<Point> pathClone = (ArrayList<Point>) path.clone();
-//                pathClone.add(p3);
-//                findPaths(p3, p2, pathClone, visited, type);
-//                visited[u][v] = false;
-//            }
-//        }
-//    }
-
     public PointLine checkTwoPoint(Point p1, Point p2) {
-//        paths.clear();
-//        int type = matrix[p1.x][p1.y];
-//        boolean[][] visited = new boolean[row][col];
-//        visited[p1.x][p1.y] = true;
-//        ArrayList<Point> path = new ArrayList<Point>();
-//        path.add(p1);
-//        findPaths(p1, p2, path, visited, type);
-//        if (!p1.equals(p2) && matrix[p1.x][p1.y] == matrix[p2.x][p2.y] && paths.size() > 0) {
-//            return new PointLine(p1, p2);
-//        }
-//        return null;
+
         if (!p1.equals(p2) && matrix[p1.x][p1.y] == matrix[p2.x][p2.y]) {
             // check line with x
             if (p1.x == p2.x) {
@@ -337,7 +273,7 @@ public class Controller {
         }
 
         Random rand = new Random();
-        int imgCount = 21;
+        int imgCount = 38;
         int max = imgCount / 2;
         int[] arr = new int[imgCount + 1];
         ArrayList<Point> listPoint = new ArrayList<Point>();
