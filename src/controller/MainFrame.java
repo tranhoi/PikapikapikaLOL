@@ -35,27 +35,22 @@ import sun.audio.ContinuousAudioDataStream;
  * @author DuyDL2
  */
 public class MainFrame extends JFrame implements ActionListener, Runnable {
-
     private static final long serialVersionUID = 1L;
-
-    private int maxTime = SetLevel()[4];
+    private int maxTime = 600;
     public int time = maxTime;
     private int width = 1800;
     private int heigh = 1000;
     public JLabel lbScore;
     private JProgressBar progressTime;
-    private JButton btnNewGame;
-    private JButton btnExit;
+    private JButton btnNewGame, btnExit;
     private JComboBox cpbLevel;
     private ButtonEvent graphicsPanel;
     private JPanel mainPanel;
-
     private boolean pause = false;
     private boolean resume = false;
     Music m = new Music();
     AudioStream as = null;
     AudioPlayer ap = AudioPlayer.player;
-
     public MainFrame() {
         add(mainPanel = createMainPanel());
         setTitle("Pika Pika Pika LOL");
@@ -72,33 +67,35 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 //            g.drawImage(img, 0, 0, null);
 //         }
 //        });
+        btnExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });              
         setVisible(true);
         as = m.startMusic();
         ap.start(as);
-
     }
     public int[] SetLevel(){
         int lev = 0;
         try{
             lev = cpbLevel.getSelectedIndex();
         }catch(Exception e){}       
-        int row=0, col=0, siz=0, count=0, mtime=0, bound=0;
+        int row=0, col=0, siz=0, count=0, bound=0;
         switch(lev){
             case 0:
              row = 6;
              col = 8;
              siz = 160;
              count = 16;
-             mtime = 120;
-             bound = 16;
-             
+             bound = 16;            
             break;              
             case 1:
              row = 8;
              col = 11;
              siz = 120;
              count = 18;
-             mtime = 180;
              bound = 12;
             break;
             case 2:
@@ -106,7 +103,6 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
              col = 17;
              siz = 78;
              count = 26;
-             mtime = 300;
              bound = 8;
             break;
             case 3:
@@ -114,11 +110,10 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
              col = 36;
              siz = 38;
              count = 46;
-             mtime = 6000;
              bound = 2;
             break;
         }
-        int[] level = {row, col, siz, count, mtime, bound};
+        int[] level = {row, col, siz, count, bound};
         return level;
     }
     
@@ -131,7 +126,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
     }
     @SuppressWarnings("empty-statement")
     private JPanel createGraphicsPanel() { 
-        graphicsPanel = new ButtonEvent(this, SetLevel()[0],SetLevel()[1],SetLevel()[2],SetLevel()[3],SetLevel()[5]);
+        graphicsPanel = new ButtonEvent(this, SetLevel()[0],SetLevel()[1],SetLevel()[2],SetLevel()[3],SetLevel()[4]);
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(Color.gray);
         panel.add(graphicsPanel);
@@ -211,11 +206,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
             showDialogNewGame("Your game hasn't done. Do you want to create a new game?", "Warning", 0);
         }
     }
-    public void actionExit(ActionEvent e) {
-        if (e.getSource() == btnExit) {
-            System.exit(0);
-        }
-    }
+    
     @Override
     public void run() {
         while (true) {

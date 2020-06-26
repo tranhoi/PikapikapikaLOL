@@ -35,6 +35,7 @@ public class ButtonEvent extends JPanel implements ActionListener {
     private int size;
     private int count; 
     private int bound;
+    private int imgsrc;
     private int score = 0;
     private JButton[][] btn;
     private Point p1 = null;
@@ -55,6 +56,7 @@ public class ButtonEvent extends JPanel implements ActionListener {
         this.size = size;
         this.count = count;
         this.bound = bound;
+        this.imgsrc = size;
         setLayout(new GridLayout(row, col, bound, bound));
         setBackground(backGroundColor);
         setPreferredSize(new Dimension((size + bound) * col, (size + bound) * row));
@@ -79,8 +81,23 @@ public class ButtonEvent extends JPanel implements ActionListener {
     }
     private Icon getIcon(int index) {
         int width = size, height = size;
+        String src = "";
+        switch(imgsrc){
+            case 160:
+                src = "/icon/160/";
+                break;
+            case 120:
+                src = "/icon/120/";
+                break;
+            case 78:
+                src = "/icon/78/";
+                break;
+            case 38:
+                src = "/icon/38/";
+                break;
+        }
         Image image = new ImageIcon(getClass().getResource(
-                "/icon/" + index + ".png")).getImage();
+                src + index + ".png")).getImage();
         Icon icon = new ImageIcon(image.getScaledInstance(width, height,
                 image.SCALE_SMOOTH));
         return icon;
