@@ -26,7 +26,7 @@ public class Music {
         AudioData MD;
 
         try {
-            InputStream test = new FileInputStream("D:\\musicpokemon.wav");
+            InputStream test = new FileInputStream("D:\\abc.wav");
             BGM = new AudioStream(test);
 
             //MD = BGM.getData();

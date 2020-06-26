@@ -13,7 +13,6 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
+import controller.MainFrame;
 
 /**
  *
@@ -32,9 +32,9 @@ public class ButtonEvent extends JPanel implements ActionListener {
     private static final long serialVersionUID = 1L;
     private int row;
     private int col;
+    private int size;
+    private int count; 
     private int bound = 8;
-    private int size1 = 56;
-    private int size2 = 34; 
     private int score = 0;
     private JButton[][] btn;
     private Point p1 = null;
@@ -47,21 +47,22 @@ public class ButtonEvent extends JPanel implements ActionListener {
     Music m = new Music();
     AudioStream as = null;
     AudioPlayer ap = AudioPlayer.player;
-    public ButtonEvent(MainFrame frame, int row, int col) {
+    public ButtonEvent(MainFrame frame, int row, int col, int size, int count) {
         this.frame = frame;
         this.row = row + 2;
         this.col = col + 2;
         item = row * col / 2;
-
+        this.size = size;
+        this.count = count;
         setLayout(new GridLayout(row, col, bound, bound));
         setBackground(backGroundColor);
-        setPreferredSize(new Dimension((size1 + bound) * col, (size2 + bound) * row));
+        setPreferredSize(new Dimension((size + bound) * col, (size + bound) * row));
         setBorder(new EmptyBorder(8, 8, 8, 8));
         setAlignmentY(JPanel.CENTER_ALIGNMENT);
         newGame();
     }
     public void newGame() {
-        algorithm = new Controller(this.frame, this.row, this.col);
+        algorithm = new Controller(this.frame, this.row, this.col, this.count);
         addArrayButton();
     }
     private void addArrayButton() {
@@ -76,7 +77,7 @@ public class ButtonEvent extends JPanel implements ActionListener {
         }
     }
     private Icon getIcon(int index) {
-        int width = 56, height = 34;
+        int width = size, height = size;
         Image image = new ImageIcon(getClass().getResource(
                 "/icon/" + index + ".png")).getImage();
         Icon icon = new ImageIcon(image.getScaledInstance(width, height,
@@ -140,8 +141,9 @@ public class ButtonEvent extends JPanel implements ActionListener {
                 ap.stop();
                 as = m.winningMusic();
                 ap.start(as);
-                if (frame.showDialogNewGame(
-                        "You are winer!\nDo you want play again?", "Win", 1) == true) {
+                int point = score + frame.time ;
+                String pointt = "You are winer!" + "\nYour point: " + point + "\nDo you want play again?";
+                if (frame.showDialogNewGame(pointt, "Win", 1) == true) {
                     ap.stop(as);
                 };
             }

@@ -19,14 +19,16 @@ public class Controller {
 
     private int row;
     private int col;
+    private int count;
     private int[][] matrix;
     private ArrayList<ArrayList<Point>> paths = new ArrayList<ArrayList<Point>>();
     MainFrame frame;
 
-    public Controller(MainFrame frame, int row, int col) {
+    public Controller(MainFrame frame, int row, int col, int count) {
         this.frame = frame;
         this.row = row;
         this.col = col;
+        this.count = count;
         System.out.println(row + "," + col);
         // readFile();
         createMatrix();
@@ -273,7 +275,7 @@ public class Controller {
         }
 
         Random rand = new Random();
-        int imgCount = 38;
+        int imgCount = count;
         int max = imgCount / 2;
         int[] arr = new int[imgCount + 1];
         ArrayList<Point> listPoint = new ArrayList<Point>();

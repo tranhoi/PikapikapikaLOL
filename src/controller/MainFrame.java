@@ -8,8 +8,11 @@ package controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,6 +29,7 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import sun.audio.ContinuousAudioDataStream;
 
+
 /**
  *
  * @author DuyDL2
@@ -34,10 +38,10 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    private int maxTime = 1200;
+    private int maxTime = 300;
     public int time = maxTime;
-    private int width = 1840;
-    private int height = 1076;
+    private int width = 1280;
+    private int height = 720;
     public JLabel lbScore;
     private JProgressBar progressTime;
     private JButton btnNewGame;
@@ -58,6 +62,14 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(width, height);
         setLocationRelativeTo(null);
+//        Image img = Toolkit.getDefaultToolkit().getImage("/icon/banner.png");
+//        this.setContentPane(new JPanel() {
+//         @Override
+//         public void paintComponent(Graphics g) {
+//            super.paintComponent(g);
+//            g.drawImage(img, 0, 0, null);
+//         }
+//        });
         setVisible(true);
         as = m.startMusic();
         ap.start(as);
@@ -68,34 +80,28 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         try{
             lev = cpbLevel.getSelectedIndex();
         }catch(Exception e){}       
-        int row=0,col=0,wig=0,hei=0;
+        int row=0,col=0,siz=0,count=0;
         switch(lev){
             case 0:
-             row = 4;
-             col = 4;
-             wig = 90;
-             hei = 50;
+             row = 5;
+             col = 8;
+             siz = 123;
+             count = 12;
             break;              
             case 1:
-             row = 8;
-             col = 8;
-             wig = 90;
-             hei = 50;
+             row = 6;
+             col = 10;
+             siz = 98;
+             count = 14;
             break;
             case 2:
-             row = 16;
+             row = 10;
              col = 16;
-             wig = 90;
-             hei = 50;
-            break;
-            case 3:
-             row = 24;
-             col = 24;
-             wig = 56;
-             hei = 34;
+             siz = 58;
+             count = 22;
             break;
         }
-        int[] level = {row, col, wig, hei};
+        int[] level = {row, col, siz, count};
         return level;
     }
     
@@ -108,7 +114,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
     }
     @SuppressWarnings("empty-statement")
     private JPanel createGraphicsPanel() { 
-        graphicsPanel = new ButtonEvent(this, SetLevel()[0],SetLevel()[1]);
+        graphicsPanel = new ButtonEvent(this, SetLevel()[0],SetLevel()[1],SetLevel()[2],SetLevel()[3]);
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(Color.gray);
         panel.add(graphicsPanel);
@@ -166,7 +172,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         return btn;
     }
     private JComboBox createCompoBox(String compoboxName) {
-        String[] theSeven = {"Dễ", "Trung bình", "Khó", "Khó siêu cấp vô địch vũ trụ số 7"};
+        String[] theSeven = {"Dễ", "Trung bình", "Khó"};
         JComboBox cpb = new JComboBox(theSeven);
         cpb.setSelectedIndex(1);
         cpb.addActionListener(this);
