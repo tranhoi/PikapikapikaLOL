@@ -34,7 +34,7 @@ public class ButtonEvent extends JPanel implements ActionListener {
     private int col;
     private int size;
     private int count; 
-    private int bound = 8;
+    private int bound;
     private int score = 0;
     private JButton[][] btn;
     private Point p1 = null;
@@ -47,17 +47,18 @@ public class ButtonEvent extends JPanel implements ActionListener {
     Music m = new Music();
     AudioStream as = null;
     AudioPlayer ap = AudioPlayer.player;
-    public ButtonEvent(MainFrame frame, int row, int col, int size, int count) {
+    public ButtonEvent(MainFrame frame, int row, int col, int size, int count, int bound) {
         this.frame = frame;
         this.row = row + 2;
         this.col = col + 2;
         item = row * col / 2;
         this.size = size;
         this.count = count;
+        this.bound = bound;
         setLayout(new GridLayout(row, col, bound, bound));
         setBackground(backGroundColor);
         setPreferredSize(new Dimension((size + bound) * col, (size + bound) * row));
-        setBorder(new EmptyBorder(8, 8, 8, 8));
+        setBorder(new EmptyBorder(0, 0, 0, 0));
         setAlignmentY(JPanel.CENTER_ALIGNMENT);
         newGame();
     }

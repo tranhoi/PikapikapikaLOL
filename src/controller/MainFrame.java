@@ -38,13 +38,14 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 
     private static final long serialVersionUID = 1L;
 
-    private int maxTime = 300;
+    private int maxTime = SetLevel()[4];
     public int time = maxTime;
-    private int width = 1280;
-    private int height = 720;
+    private int width = 1800;
+    private int heigh = 1000;
     public JLabel lbScore;
     private JProgressBar progressTime;
     private JButton btnNewGame;
+    private JButton btnExit;
     private JComboBox cpbLevel;
     private ButtonEvent graphicsPanel;
     private JPanel mainPanel;
@@ -60,7 +61,8 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         setTitle("Pika Pika Pika LOL");
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(width, height);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        setUndecorated(true);
         setLocationRelativeTo(null);
 //        Image img = Toolkit.getDefaultToolkit().getImage("/icon/banner.png");
 //        this.setContentPane(new JPanel() {
@@ -80,28 +82,43 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         try{
             lev = cpbLevel.getSelectedIndex();
         }catch(Exception e){}       
-        int row=0,col=0,siz=0,count=0;
+        int row=0, col=0, siz=0, count=0, mtime=0, bound=0;
         switch(lev){
             case 0:
-             row = 5;
+             row = 6;
              col = 8;
-             siz = 123;
-             count = 12;
+             siz = 160;
+             count = 16;
+             mtime = 120;
+             bound = 16;
+             
             break;              
             case 1:
-             row = 6;
-             col = 10;
-             siz = 98;
-             count = 14;
+             row = 8;
+             col = 11;
+             siz = 120;
+             count = 18;
+             mtime = 180;
+             bound = 12;
             break;
             case 2:
-             row = 10;
-             col = 16;
-             siz = 58;
-             count = 22;
+             row = 12;
+             col = 17;
+             siz = 78;
+             count = 26;
+             mtime = 300;
+             bound = 8;
+            break;
+            case 3:
+             row = 26;
+             col = 36;
+             siz = 38;
+             count = 46;
+             mtime = 6000;
+             bound = 2;
             break;
         }
-        int[] level = {row, col, siz, count};
+        int[] level = {row, col, siz, count, mtime, bound};
         return level;
     }
     
@@ -114,7 +131,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
     }
     @SuppressWarnings("empty-statement")
     private JPanel createGraphicsPanel() { 
-        graphicsPanel = new ButtonEvent(this, SetLevel()[0],SetLevel()[1],SetLevel()[2],SetLevel()[3]);
+        graphicsPanel = new ButtonEvent(this, SetLevel()[0],SetLevel()[1],SetLevel()[2],SetLevel()[3],SetLevel()[5]);
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setBackground(Color.gray);
         panel.add(graphicsPanel);
@@ -144,16 +161,16 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         JPanel panelControl = new JPanel(new BorderLayout(10, 10));
         panelControl.setBorder(new EmptyBorder(10, 3, 5, 3));
         panelControl.add(panelScoreAndTime, BorderLayout.BEFORE_FIRST_LINE);
-        panelControl.add(btnNewGame = createButton("New Game"),
-                BorderLayout.PAGE_END);
         panelControl.add(cpbLevel = createCompoBox("Level"),
-                BorderLayout.CENTER);
-
+                BorderLayout.BEFORE_LINE_BEGINS);
+        panelControl.add(btnNewGame = createButton("New Game"),
+                BorderLayout.EAST);
+        panelControl.add(btnExit = createButton("Exit"),
+                BorderLayout.PAGE_END);
         // use panel set Layout BorderLayout to panel control in top
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(new TitledBorder("Status"));
         panel.add(panelControl, BorderLayout.PAGE_START);
-
         return panel;
     }
 
@@ -172,7 +189,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
         return btn;
     }
     private JComboBox createCompoBox(String compoboxName) {
-        String[] theSeven = {"Dễ", "Trung bình", "Khó"};
+        String[] theSeven = {"Dễ", "Trung bình", "Khó", "Siêu cấp vô địch lạp xưởng bông lan trứng muối"};
         JComboBox cpb = new JComboBox(theSeven);
         cpb.setSelectedIndex(1);
         cpb.addActionListener(this);
@@ -194,7 +211,11 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
             showDialogNewGame("Your game hasn't done. Do you want to create a new game?", "Warning", 0);
         }
     }
-
+    public void actionExit(ActionEvent e) {
+        if (e.getSource() == btnExit) {
+            System.exit(0);
+        }
+    }
     @Override
     public void run() {
         while (true) {
@@ -206,7 +227,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
             progressTime.setValue((int) ((double) time / maxTime * 100));
         }
     }
-
+    
     public JProgressBar getProgressTime() {
         return progressTime;
     }
