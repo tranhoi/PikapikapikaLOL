@@ -81,21 +81,7 @@ public class ButtonEvent extends JPanel implements ActionListener {
     }
     private Icon getIcon(int index) {
         int width = size, height = size;
-        String src = "";
-        switch(imgsrc){
-            case 160:
-                src = "/icon/160/";
-                break;
-            case 120:
-                src = "/icon/120/";
-                break;
-            case 78:
-                src = "/icon/78/";
-                break;
-            case 38:
-                src = "/icon/38/";
-                break;
-        }
+        String src = "/icon/" + imgsrc + "/";
         Image image = new ImageIcon(getClass().getResource(
                 src + index + ".png")).getImage();
         Icon icon = new ImageIcon(image.getScaledInstance(width, height,

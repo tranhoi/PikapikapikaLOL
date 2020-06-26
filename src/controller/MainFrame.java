@@ -38,8 +38,6 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
     private static final long serialVersionUID = 1L;
     private int maxTime = 600;
     public int time = maxTime;
-    private int width = 1800;
-    private int heigh = 1000;
     public JLabel lbScore;
     private JProgressBar progressTime;
     private JButton btnNewGame, btnExit;
@@ -87,28 +85,28 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
             case 0:
              row = 6;
              col = 8;
-             siz = 160;
+             siz = 108;
              count = 16;
-             bound = 16;            
+             bound = 12;            
             break;              
             case 1:
              row = 8;
              col = 11;
-             siz = 120;
+             siz = 80;
              count = 18;
-             bound = 12;
+             bound = 8;
             break;
             case 2:
              row = 12;
              col = 17;
-             siz = 78;
+             siz = 52;
              count = 26;
-             bound = 8;
+             bound = 4;
             break;
             case 3:
              row = 26;
              col = 36;
-             siz = 38;
+             siz = 24;
              count = 46;
              bound = 2;
             break;
